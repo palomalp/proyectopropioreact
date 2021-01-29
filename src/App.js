@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
+import Task from "./components/task";
+import Title from "./components/title";
 
 class App extends Component {
   constructor(props) { //el constructor crea los objetos de la clase.
@@ -30,19 +32,12 @@ class App extends Component {
 render() {
   return (
     <div className="container">
-      <h1 className="title">To do list<span aria-label="emoji" role="img">🔥</span></h1>
+      <Title/>
       <form onSubmit= {this.handleSubmit}> 
         <input onChange={this.handleTaskChange} value= {this.state.newTask} type = "text" className= "new-task"/> {/* //a onChange se le asigna una funcion que sera llamada cada vez que cambie algo en el input */}
       </form>
   {/* //this.handleTaskChange es la funcion que se va a ejecutar cada vez que cambiemos el contenido del input */}
-      <h2 className = "test-label"> {this.state.newTask}</h2> 
-      {
-        this.state.tasks.map (task =>
-          <div className= "task-container">
-            <h3 className = "task">{task}</h3>
-            </div>
-        )
-      }
+      {this.state.tasks.map (task => <Task/>)}
     </div>
     );
   }
