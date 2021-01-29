@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
-import Task from "./components/task";
+import Input from "./components/input";
+import TaskList from "./components/task-list";
 import Title from "./components/title";
+import Layout from "./components/layout"
 
 class App extends Component {
   constructor(props) { //el constructor crea los objetos de la clase.
@@ -29,16 +31,30 @@ class App extends Component {
     console.log (newTasks)
   }
 
+  handleDelete = (id) => {
+    let newTasks = this.state.tasks;
+    newTasks.splice(id, 1)
+    this.setState({
+      tasks: newTasks,
+    })
+  }
+
 render() {
   return (
-    <div className="container">
+    <Layout>
       <Title/>
-      <form onSubmit= {this.handleSubmit}> 
-        <input onChange={this.handleTaskChange} value= {this.state.newTask} type = "text" className= "new-task"/> {/* //a onChange se le asigna una funcion que sera llamada cada vez que cambie algo en el input */}
-      </form>
+      <Input
+        handleSubmit={this.handleSubmit}
+        handleTaskChange={this.handleTaskChange}
+        value={this.state.newTask}
+        />
   {/* //this.handleTaskChange es la funcion que se va a ejecutar cada vez que cambiemos el contenido del input */}
-      {this.state.tasks.map (task => <Task/>)}
-    </div>
+      <TaskList
+        tasks={this.state.tasks} 
+        handleDelete={this.handleDelete}
+        //esto sería el map (que está en el task-list.js)
+        />
+    </Layout>
     );
   }
 }
